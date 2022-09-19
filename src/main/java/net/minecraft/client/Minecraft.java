@@ -11,11 +11,14 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Session;
 
+import java.io.File;
+
 public class Minecraft {
     public FontRenderer fontRendererObj;
     private static Minecraft mc = null;
     private final Session session = new Session();
     public GameSettings field_71474_y;
+    public File field_71412_D = new File("./.minecraft");
     private IResourceManager resourceManager;
     private TextureManager textureManager;
     private LanguageManager languageManager = new LanguageManager(new IMetadataSerializer(), "en_us");
@@ -24,6 +27,7 @@ public class Minecraft {
         this.fontRendererObj = new FontRenderer(null, new ResourceLocation(""), null, false);
         this.field_71474_y = new GameSettings(this, null);
         this.textureManager = new TextureManager((this.resourceManager = new SimpleReloadableResourceManager(null)));
+        this.field_71412_D.mkdir();
     }
 
     public static Minecraft func_71410_x() {
