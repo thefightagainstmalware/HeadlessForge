@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -26,6 +27,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.LoaderState.ModState;
@@ -127,7 +129,7 @@ public class Loader
     private static String minor;
     private static String rev;
     private static String build;
-    private static String mccversion;
+    private static String mccversion = "1.8.9";
     private static String mcpversion;
 
     /**
@@ -151,7 +153,7 @@ public class Loader
      */
     private File canonicalConfigDir;
     private File canonicalModsDir;
-    private LoadController modController;
+    private LoadController modController = new LoadController(this);
     private MinecraftDummyContainer minecraft;
     private MCPDummyContainer mcp;
 
@@ -187,7 +189,7 @@ public class Loader
 
     private Loader()
     {
-        modClassLoader = new ModClassLoader(getClass().getClassLoader());
+        modClassLoader = new ModClassLoader(new LaunchClassLoader(new URL[0]));
         if (!mccversion.equals(MC_VERSION))
         {
             FMLLog.severe("This version of FML is built for Minecraft %s, we have detected Minecraft %s in your minecraft jar file", mccversion, MC_VERSION);
@@ -834,7 +836,7 @@ public class Loader
 
     public boolean hasReachedState(LoaderState state)
     {
-        return modController != null ? modController.hasReachedState(state) : false;
+        return modController != null && modController.hasReachedState(state);
     }
 
     public String getMCPVersionString()

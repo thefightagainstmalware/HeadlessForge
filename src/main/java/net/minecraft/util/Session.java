@@ -1,5 +1,6 @@
 package net.minecraft.util;
 
+import com.mojang.authlib.GameProfile;
 import gq.malwarefight.headlessforge.Utils;
 
 import java.util.Base64;
@@ -12,6 +13,7 @@ public class Session {
     private String token;
     private String username;
     private UUID profileID;
+    private GameProfile profile;
     public Session() {
         this.token = "eyJhbGciOiJIUzI1NiJ9";
         StringBuilder middlePartBuilder = new StringBuilder();
@@ -35,6 +37,7 @@ public class Session {
         this.playerID = this.token;
         this.username = Utils.generateRandomUsername();
         this.profileID = UUID.randomUUID();
+        this.profile = new GameProfile(this.profileID, this.username);
     }
     public String func_111285_a() {
         return this.username;
@@ -52,4 +55,7 @@ public class Session {
         return this.profileID.toString().replace("-", "");
     }
 
+    public GameProfile func_148256_e() {
+        return this.profile;
+    }
 }
