@@ -1,3 +1,6 @@
+## This repo has been archived
+Superseded by using a real minecraft instance with Xvfb
+
 # HeadlessForge
 Run Minecraft 1.8.9 mods without a window server (headless) <br>
 The key use case is for analyzing suspicious 1.8.9 Minecraft mods
